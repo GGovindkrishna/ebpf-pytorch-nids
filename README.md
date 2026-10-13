@@ -32,3 +32,30 @@ A high-performance, real-time, unsupervised Network Intrusion Detection System (
 ├── udp_spike.py       # Testing script to simulate malicious/anomalous UDP traffic spikes
 ├── requirements.txt   # Project dependencies
 └── README.md          # Project documentation
+
+## 💻 Quick Start Guide
+
+### 1. Prerequisites (Single Command)
+Run the following single command in your Linux terminal to install all required dependencies, BCC tools, and kernel headers at once:
+```bash
+sudo apt-get update && sudo apt-get install -y python3-bcc bpfcc-tools linux-headers-$(uname -r) && pip install torch numpy
+
+### 2. Clone the Repository
+```bash
+git clone [https://github.com/GGovindkrishna/ebpf-pytorch-nids.git](https://github.com/GGovindkrishna/ebpf-pytorch-nids.git)
+cd ebpf-pytorch-nids
+
+### 3. Run the NIDS Application
+Because eBPF bytecode requires root privileges to load into the Linux kernel, run the application with `sudo`:
+```bash
+sudo python3 nids_app.py --interface lo --warmup 5
+
+### 4. Test with Traffic Spikes
+In a separate terminal, execute the UDP spike script to trigger an anomaly detection alert:
+```bash
+python3 udp_spike.py
+
+### 5. Check Audit Logs
+View recorded normal windows and anomaly alerts in real time:
+```bash
+sudo cat nids_alerts.log
